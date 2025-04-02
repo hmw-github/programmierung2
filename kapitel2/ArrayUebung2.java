@@ -23,12 +23,12 @@ class Quadrat {
 public class ArrayUebung2 {
     public static void main(String[] args) {
         // 1.
-    	Quadrat[] quadrate = {
-    			new Quadrat(4), new Quadrat(3), new Quadrat(2) 
+    	EqualsExample[] quadrate = {
+    			new EqualsExample(4), new EqualsExample(3), new EqualsExample(2) 
     	};
 
     	// 2. 
-        for (Quadrat quadrat : quadrate) {
+        for (EqualsExample quadrat : quadrate) {
         	quadrat.print();
         }  
         
