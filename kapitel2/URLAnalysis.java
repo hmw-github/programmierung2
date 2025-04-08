@@ -37,6 +37,8 @@ class URL {
 		return "URL [protocol=" + protocol + ", user=" + user + ", password=" + password + ", host=" + host + ", port="
 				+ port + ", path=" + path + "]";
 	}
+
+
 }
 
 public class URLAnalysis {
