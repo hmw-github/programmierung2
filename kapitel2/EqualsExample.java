@@ -10,8 +10,12 @@ class Quadrat2 {
     // Methode zum Vergleichen zweier Quadrate
     @Override
     public boolean equals(Object o) {
-    	Quadrat2 other = (Quadrat2) o;
-    	return seite == other.seite;
+    	if (o instanceof Quadrat2) {
+    		Quadrat2 other = (Quadrat2) o;
+    		return seite == other.seite;
+    	} else {
+    		return false;
+    	}
     }    
     
     //@Override
@@ -31,6 +35,7 @@ public class EqualsExample {
         	System.out.println("gleich!");
         }
         System.out.println(q2);
+        boolean g = q2.equals("Hi!");
     }
 }
 
