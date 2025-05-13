@@ -2,51 +2,13 @@ package programmierung2.kapitel6;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Für Sortierung nach Name aufsteigend
- */
-class NameComparator implements Comparator<Student> {
-	@Override
-	public int compare(Student s1, Student s2) {
-		return s1.getName().compareTo(s2.getName());
-	}
-}
-
-class Student implements Comparable<Student> {
-    private String name;
-    private int matriculationNumber;
-
-    public Student(String name, int matriculationNumber) {
-        this.name = name;
-        this.matriculationNumber = matriculationNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMatriculationNumber() {
-        return matriculationNumber;
-    }
-
-    // Absteigend geordnet nach Matrikelnummer
-    public int compareTo(Student s) {
-    	return s.matriculationNumber - matriculationNumber;
-    }
-    
-    @Override
-    public String toString() {
-        return "Name: " + name + ", Matriculation Number: "
-            + matriculationNumber;
-    }
-}
-
-/**
- * Übung: Studentenverwaltung mit Liste von Student-Objekten
+ * Übung: Studentenverwaltung mit Map von Student-Objekten: key=Integer, value=Student
  * Bis zum Beenden wird ein Menü gezeigt, welches eine Eingabe (=Nummer der Operation) abfragt
  * Operationen:
  * (1) Auflisten
@@ -58,12 +20,12 @@ class Student implements Comparable<Student> {
  * Jede Operation zeigt nach ihrer Ausführung an, wie lange die entsprechende 
  * Listenoperation gedauert hat
  */
-public class ManageStudentsWithList {
-    private List<Student> studentList = new ArrayList<>();
+public class ManageStudentsWithMap {
+    private Map<Integer, Student> studentList = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-    	ManageStudentsWithList management = new ManageStudentsWithList();
+    	ManageStudentsWithMap management = new ManageStudentsWithMap();
         management.run();
     }
 
@@ -120,9 +82,17 @@ public class ManageStudentsWithList {
         System.out.print("Enter your choice: ");
     }
 
+    // Aufsteigend nach Matrikelnummer sortiert ausgeben
     private void listStudents() {
-    	for (int i = 0; i < studentList.size(); ++i) {
-    		System.out.printf("%d: %s%n", i + 1, studentList.get(i).toString());
+    	List<Student> students = new ArrayList<>();
+    	int i = 1;
+
+    	for (Student s : studentList.values()) {
+    		students.add(s);
+    	}
+    	Collections.sort(students);
+    	for (Student s : students) {
+    		System.out.printf("%d: %s%n", i++, s);
     	}
     }
 
@@ -138,23 +108,14 @@ public class ManageStudentsWithList {
     	int matrikelnummer = scanner.nextInt();
     	
     	if (findStudent(matrikelnummer) == null) {
-        	studentList.add(new Student(name, matrikelnummer));
+        	studentList.put(matrikelnummer, new Student(name, matrikelnummer));
     	} else {
     		System.out.println("Fehler: Matrikelnummer bereits vergeben!");
     	}    	
     }
 
     private Student findStudent(int matriculationNumber) {
-    	Student result = null;
-    	
-    	for (int i = 0; i < studentList.size(); ++i) {
-    		if (studentList.get(i).getMatriculationNumber() == matriculationNumber) {
-    			result = studentList.get(i);
-    			break;
-    		}
-    	}
-
-    	return result;
+    	return studentList.get(matriculationNumber);
     }
     
     /**
@@ -187,7 +148,7 @@ public class ManageStudentsWithList {
     	Student s = findStudent(matrikelnummer);
     	
     	if (s != null) {
-    		studentList.remove(s);
+    		studentList.remove(s.getMatriculationNumber());
 			System.out.println("gelöscht: " + s);
     	} else {
     		System.out.println("Matrikelnummer nicht gefunden!");
@@ -195,8 +156,7 @@ public class ManageStudentsWithList {
     }
 
     private void sortStudents() {
-    	//Collections.sort(studentList);
-    	Collections.sort(studentList, new NameComparator());
+    	System.out.println("Nicht mehr unterstützt!");
     }
 
     private void generateSampleStudents() {
@@ -205,7 +165,7 @@ public class ManageStudentsWithList {
             String name = "Student" + (i + 1);
             int matriculationNumber = 100000 + i;
             Student student = new Student(name, matriculationNumber);
-            studentList.add(student);
+            studentList.put(matriculationNumber, student);
         }
         System.out.println("50,000 sample students generated.");
     }
