@@ -1,5 +1,4 @@
 package kapitel1;
-
 import java.util.Scanner;
 
 public class SchleifenDemo {
