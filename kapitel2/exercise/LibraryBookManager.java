@@ -24,22 +24,7 @@ public class LibraryBookManager {
 		return line;
 	}
 	
-	public static void main(String[] args) {
-		Book[] books = {
-			    new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams"),
-			    new Book("1984", "George Orwell"),
-			    new Book("Brave New World", "Aldous Huxley"),
-			    new Book("To Kill a Mockingbird", "Harper Lee"),
-			    new Book("The Great Gatsby", "F. Scott Fitzgerald"),
-			    new Book("Moby Dick", "Herman Melville"),
-			    new Book("War and Peace", "Leo Tolstoy"),
-			    new Book("The Catcher in the Rye", "J.D. Salinger"),
-			};
-		
-		Library lib = new Library(100, books);
-		lib.insertBook(new Book("The Lord of the Rings", "J.R.R. Tolkien"), 20);
-		lib.insertBook(new Book("Pride and Prejudice", "Jane Austen"), 30);
-		
+	private static void mainLoop(Library lib) {
 		boolean terminated = false;
 		while (!terminated) {
 			int choice = printMenuAndGetChoice();
@@ -79,6 +64,29 @@ public class LibraryBookManager {
 				break;
 			}
 		}
+	}
+	
+	private static Library initLibrary() {
+		Book[] books = {
+			    new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams"),
+			    new Book("1984", "George Orwell"),
+			    new Book("Brave New World", "Aldous Huxley"),
+			    new Book("To Kill a Mockingbird", "Harper Lee"),
+			    new Book("The Great Gatsby", "F. Scott Fitzgerald"),
+			    new Book("Moby Dick", "Herman Melville"),
+			    new Book("War and Peace", "Leo Tolstoy"),
+			    new Book("The Catcher in the Rye", "J.D. Salinger"),
+			};
+		
+		Library lib = new Library(100, books);
+		lib.insertBook(new Book("The Lord of the Rings", "J.R.R. Tolkien"), 20);
+		lib.insertBook(new Book("Pride and Prejudice", "Jane Austen"), 30);
+		return lib;
+	}
+	
+	public static void main(String[] args) {
+		Library lib = initLibrary();
+		mainLoop(lib);
 	}
 
 }
