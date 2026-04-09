@@ -29,8 +29,12 @@ public class Library {
 		}
 	}
 	
+	/**
+	 * Speichert b an Index pos, falls die Position frei ist
+	 */
 	public void insertBook(Book b, int pos) {
-		if (pos >= books.length) {
+		// breche ab, wenn der Index ungültig ist ODER die Position belegt ist
+		if (pos >= books.length || books[pos] != null) {
 			return;
 		}
 		books[pos] = b;

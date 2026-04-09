@@ -79,7 +79,7 @@ public class LibraryBookManager {
 			};
 		
 		Library lib = new Library(100, books);
-		lib.insertBook(new Book("The Lord of the Rings", "J.R.R. Tolkien"), 20);
+		lib.insertBook(new Book("The Lord of the Rings", "J.R.R. Tolkien"), -20);
 		lib.insertBook(new Book("Pride and Prejudice", "Jane Austen"), 30);
 		return lib;
 	}
