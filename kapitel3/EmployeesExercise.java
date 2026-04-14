@@ -46,6 +46,12 @@ class Manager extends Employee {
 	public float calculateSalary() {
 		return getBaseSalary() + bonus;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", Manager [bonus=" + bonus + "]";
+	}
+	
 }
 
 class Developer extends Employee {
@@ -60,6 +66,10 @@ class Developer extends Employee {
 		return getBaseSalary() + 500 * projectsCount;
 	}	
 	
+	@Override
+	public String toString() {
+		return super.toString() + ", Developer [projectsCount=" + projectsCount + "]";
+	}
 }
 
 class Janitor extends Employee {
@@ -71,7 +81,6 @@ class Janitor extends Employee {
 	public float calculateSalary() {
 		return getBaseSalary();
 	}	
-	
 }
 
 public class EmployeesExercise {
