@@ -30,8 +30,15 @@ public class Rechteck {
 
     @Override
     public boolean equals(Object o) {
-    	Rechteck other = (Rechteck) o;
-    	
+    	if (o instanceof Rechteck other) {
+        	//Rechteck other = (Rechteck) o;
+        	return hoehe == other.hoehe && breite == other.breite;    		
+    	}
+    	return false;
+    	//throw new RuntimeException("equals kann nur Rechtecke vergleichen!");
+    }
+
+    public boolean equals(Rechteck other) {
     	return hoehe == other.hoehe && breite == other.breite;
     }
     
@@ -43,7 +50,7 @@ public class Rechteck {
         r1.setSeiten(3.0, 4.0);
         
         // Inhaltsvergleich
-        if (r1.equals(r1)) {
+        if (r1.equals(r2)) {
         	System.out.println("Inhaltsgleich!");
         } else {
         	System.out.println("Ungleich!");        	
