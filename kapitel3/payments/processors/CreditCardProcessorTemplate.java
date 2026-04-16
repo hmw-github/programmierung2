@@ -2,18 +2,17 @@ package kapitel3.payments.processors;
 
 import java.time.Year;
 
-public class CreditCardProcessor extends PaymentProcessor {
+public class CreditCardProcessorTemplate {
 
-	public CreditCardProcessor(String ownerName, String cardNumber, int expiryYear) {
-		super(ownerName);
+	public CreditCardProcessorTemplate(String ownerName, String cardNumber, int expiryYear) {
 	}
 
-	@Override
 	/**
 	 * Return true, if
 	 * - cardNumber hast 16 digits
 	 * - expiryYear is not in the past 
 	 */
+/*
 	public boolean validate() {
 		boolean digitsCorrect = true;
 		String cN = this.cardNumber.trim();
@@ -49,4 +48,5 @@ public class CreditCardProcessor extends PaymentProcessor {
 	public double getTransactionFee(double amount) {
 		return amount * 0.015; // 1.5%
 	}
+	*/
 }

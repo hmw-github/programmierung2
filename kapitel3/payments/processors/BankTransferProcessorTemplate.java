@@ -1,21 +1,17 @@
 package kapitel3.payments.processors;
 
-public class BankTransferProcessor extends PaymentProcessor {
+public class BankTransferProcessorTemplate {
 
-	private String iban;
-	
-	public BankTransferProcessor(String ownerName, String iban) {
-		super(ownerName);
-		this.iban = iban;
+	public BankTransferProcessorTemplate(String ownerName, String iban) {
 	}
 
-	@Override
 	/**
 	 * (only here :-) 
 	 * An IBAN must have the following structure:
 	 * 2 letters (case not relevant)
 	 * at least 10 characters which may be letters or digits
 	 */
+/*
 	public boolean validate() {
 		// shorter with: return iban.matches("[A-Za-z]{2}[A-Za-z0-9]{10,}");
 		String s = iban.toLowerCase();
@@ -54,4 +50,5 @@ public class BankTransferProcessor extends PaymentProcessor {
 	public double getTransactionFee(double amount) {
 		return 1.50; // flat fee
 	}
+	*/
 }

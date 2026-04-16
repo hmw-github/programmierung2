@@ -1,5 +1,6 @@
 package kapitel3.payments.processors;
 
+/*
 public class PayPalProcessor extends PaymentProcessor {
 
 	public PayPalProcessor(String ownerName, String email) {
@@ -26,3 +27,4 @@ public class PayPalProcessor extends PaymentProcessor {
 		return amount * 0.029; // 2.9%
 	}
 }
+*/

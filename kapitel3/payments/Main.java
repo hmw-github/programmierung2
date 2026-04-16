@@ -1,16 +1,12 @@
 package kapitel3.payments;
 
-import kapitel3.payments.processors.BankTransferProcessor;
-import kapitel3.payments.processors.CreditCardProcessor;
-import kapitel3.payments.processors.PayPalProcessor;
-import kapitel3.payments.processors.PaymentProcessor;
-
+/*
 public class Main {
- public static void main(String[] args) {
+ public static void main(String[] args) { 
      // Valid payments
-     PaymentProcessor card   = new CreditCardProcessor("Hans Müller", "1234567890123456", 2027);
+     PaymentProcessor card   = new CreditCardProcessorTemplate("Hans Müller", "1234567890123456", 2027);
      PaymentProcessor paypal = new PayPalProcessor("Hans Müller", "hans@example.com");
-     PaymentProcessor bank   = new BankTransferProcessor("Hans Müller", "DE89370400440532013000");
+     PaymentProcessor bank   = new BankTransferProcessorTemplate("Hans Müller", "DE89370400440532013000");
 
      card.process(49.99);
      paypal.process(49.99);
@@ -19,10 +15,11 @@ public class Main {
      // Invalid payment — should throw
      System.out.println("--- Testing invalid card number ---");
      try {
-         PaymentProcessor badCard = new CreditCardProcessor("Hans Müller", "1234", 2027);
+         PaymentProcessor badCard = new CreditCardProcessorTemplate("Hans Müller", "1234", 2027);
          badCard.process(49.99);
      } catch (Exception e) {
          System.out.println("Caught expected exception: " + e.getMessage());
      }
  }
 }
+*/
