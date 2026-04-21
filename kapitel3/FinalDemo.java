@@ -1,14 +1,17 @@
 package kapitel3;
 
-public final class FinalDemo {
+public final class FinalDemo { // Klasse kann nicht spezialisiert werden
 
+	// owner ist readonly nach der Initialisierung
     private final String owner;
     private int counter = 0;
 
+	// owner ist readonly nach der Initialisierung
     public FinalDemo(final String owner) {
-        this.owner = owner;
+    	this.owner = owner;
     }
 
+    // kann in Unterklasse nicht überschrieben werden!
     public final String getOwner() {
         return owner;
     }
@@ -18,6 +21,7 @@ public final class FinalDemo {
     }
 
     public void demonstrateLocalFinal() {
+    	// maxRetries ist readonly
         final int maxRetries = 5;
 
         for (int i = 0; i < maxRetries; i++) {
