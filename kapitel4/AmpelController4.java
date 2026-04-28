@@ -4,6 +4,7 @@ enum AmpelZustandMitDauer {
 	ZEIGT_ROT(3), ZEIGT_ROTGELB(1), ZEIGT_GELB(2), ZEIGT_GRUEN(5);
 
 	private int dauer;
+	private String gruss;
 	
 	private AmpelZustandMitDauer(int dauer) {
 		this.dauer = dauer;
@@ -31,7 +32,11 @@ public class AmpelController4 {
         zustand = AmpelZustandMitDauer.ZEIGT_ROT;
         dauer = 0;
         
-        while (dauer < 100) {
+        // TODO: Ausgabe aller Zustandswerte
+        
+        // TODO: Einlesen des Startzustands
+        
+        while (dauer < 20) {
             switch (zustand) {
                 case ZEIGT_ROT:
                     System.out.println("zeige rot...");
