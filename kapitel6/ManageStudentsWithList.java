@@ -1,11 +1,20 @@
 package kapitel6;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import kapitel3.Student;
+
+class MatrikelnummerComparator implements Comparator<Student> {
+	@Override
+	public int compare(Student s1, Student s2) {
+		return s1.getMatrikelnummer() - s2.getMatrikelnummer();
+	}
+}
 
 public class ManageStudentsWithList {
     private List<Student> studentList = new ArrayList<>();
@@ -69,18 +78,60 @@ public class ManageStudentsWithList {
     }
 
     private void listStudents() {
+    	for (int i = 0; i < studentList.size(); ++i) {
+    		System.out.printf("%05d: %s\n", i+1, studentList.get(i));
+    	}
     }
 
     private void addStudent() {
+    	System.out.print("Name: ");
+    	String name = scanner.nextLine();
+    	System.out.print("Nr: ");
+    	int nr = scanner.nextInt();
+    	Student neu = new Student(name, nr);
+    	studentList.add(neu);
     }
 
     private void findStudent() {
+    	System.out.print("Nr: ");
+    	int nr = scanner.nextInt();
+
+    	boolean gefunden = false;
+    	for (Student s : studentList) {
+    		if (s.getMatrikelnummer() == nr) {
+    			System.out.printf("gefunden: %s\n", s);
+    			gefunden = true;
+    			break;
+    		}
+    	}
+    	if (!gefunden) {
+    		System.out.println("Leider nicht gefunden!");
+    	}
     }
 
     private void deleteStudent() {
+    	System.out.print("Nr: ");
+    	int nr = scanner.nextInt();
+
+    	boolean gefunden = false;
+    	int i = 0;
+    	for (Student s : studentList) {
+    		if (s.getMatrikelnummer() == nr) {
+    			System.out.printf("gefunden: %s\n", s);
+    			gefunden = true;
+    			// Löschen
+    			studentList.remove(i);
+    			break;
+    		}
+    		++i;
+    	}
+    	if (!gefunden) {
+    		System.out.println("Leider nicht gefunden!");
+    	}
     }
 
     private void sortStudents() {
+    	Collections.sort(studentList, new MatrikelnummerComparator());
     }
 
     private void generateSampleStudents() {

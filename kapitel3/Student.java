@@ -21,7 +21,11 @@ class Person {
 public class Student extends Person {
     private int matrikelnummer;
     
-    public Student(String name, int matrikelnummer) {
+    public int getMatrikelnummer() {
+		return matrikelnummer;
+	}
+
+	public Student(String name, int matrikelnummer) {
         //super();
         super(name); // ruft Person(name) auf
         this.matrikelnummer = matrikelnummer;
