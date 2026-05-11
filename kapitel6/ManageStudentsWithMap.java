@@ -1,67 +1,22 @@
 package kapitel6;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 import java.util.Scanner;
 
-class Student {
-	private String name;
-	private int matrikelnummer;
-	
-	public Student(String name, int matrikelnummer) {
-		this.name = name;
-		this.matrikelnummer = matrikelnummer;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getMatrikelnummer() {
-		return matrikelnummer;
-	}
-	public void setMatrikelnummer(int matrikelnummer) {
-		this.matrikelnummer = matrikelnummer;
-	}
-	@Override
-	public String toString() {
-		return "Student [name=" + name + ", matriculationNumber=" + matrikelnummer + "]";
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(name, matrikelnummer);
-	}
-	@Override
-	public boolean equals(Object other) {
-		if (this == other) 
-			return true;
-		if (other == null || !(other instanceof Student)) {
-			return false;
-		}
-		
-		Student otherStudent = (Student) other;
-		return Objects.equals(name,  otherStudent.name) && matrikelnummer == otherStudent.matrikelnummer;
-	}
-}
-
-class MatrikelnummerComparator implements Comparator<Student> {
-	@Override
-	public int compare(Student s1, Student s2) {
-		return s1.getMatrikelnummer() - s2.getMatrikelnummer();
-	}
-}
-
-public class ManageStudentsWithList {
-    private List<Student> studentList = new ArrayList<>();
+/**
+ * Please note: we are using the Student class from "ManageStudentWithList"
+ * - hashCode is defined using the attributes
+ * - equals has been overidden
+ */
+public class ManageStudentsWithMap {
+    private List<Student> studentList = new LinkedList<>();
     private Scanner scanner = new Scanner(System.in);
+    private long startTime;
 
     public static void main(String[] args) {
-    	ManageStudentsWithList management = new ManageStudentsWithList();
+    	ManageStudentsWithMap management = new ManageStudentsWithMap();
         management.run();
     }
 
@@ -70,8 +25,9 @@ public class ManageStudentsWithList {
         do {
             showMenu();
             choice = scanner.nextInt();
-            scanner.nextLine(); // Konsumiert den Zeilenumbruch
-            long startTime = System.currentTimeMillis();
+            scanner.nextLine(); // consume rest of line
+            startTime = System.currentTimeMillis();
+            
             switch (choice) {
                 case 1:
                     listStudents();
@@ -119,63 +75,64 @@ public class ManageStudentsWithList {
 
     private void listStudents() {
     	for (int i = 0; i < studentList.size(); ++i) {
-    		System.out.printf("%05d: %s\n", i+1, studentList.get(i));
+    		System.out.printf("%05d: %s\n", i+1, 
+    				studentList.get(i));
     	}
     }
 
     private void addStudent() {
     	System.out.print("Name: ");
     	String name = scanner.nextLine();
-    	System.out.print("Nr: ");
+    	System.out.print("Matriculation number: ");
     	int nr = scanner.nextInt();
-    	Student neu = new Student(name, nr);
-    	studentList.add(neu);
+    	
+    	startTime = System.currentTimeMillis();
+    	Student newStudent = new Student(name, nr);
+    	studentList.add(newStudent);
+    	System.out.println(newStudent + " added.");
     }
 
     private void findStudent() {
-    	System.out.print("Nr: ");
+    	System.out.print("Matriculation number: ");
     	int nr = scanner.nextInt();
-
-    	boolean gefunden = false;
+    	
+    	startTime = System.currentTimeMillis();
+    	boolean found = false;
     	for (Student s : studentList) {
-    		if (s.getMatrikelnummer() == nr) {
-    			System.out.printf("gefunden: %s\n", s);
-    			gefunden = true;
+    		if (s.getMatriculationNumber() == nr) {
+    			System.out.println(s + " found!");
+    			found = true;
     			break;
     		}
     	}
-    	if (!gefunden) {
-    		System.out.println("Leider nicht gefunden!");
+    	if (!found) {
+    		System.out.println("Number not found!");
     	}
     }
 
     private void deleteStudent() {
-    	System.out.print("Nr: ");
+    	System.out.print("Matriculation number: ");
     	int nr = scanner.nextInt();
-
-    	boolean gefunden = false;
+    	
+    	startTime = System.currentTimeMillis();
     	int i = 0;
     	for (Student s : studentList) {
-    		if (s.getMatrikelnummer() == nr) {
-    			System.out.printf("gefunden: %s\n", s);
-    			gefunden = true;
-    			// Löschen
+    		if (s.getMatriculationNumber() == nr) {
+    			System.out.println(s + " deleted!");
     			studentList.remove(i);
-    			break;
+    			return;
     		}
     		++i;
     	}
-    	if (!gefunden) {
-    		System.out.println("Leider nicht gefunden!");
-    	}
+    	System.out.println("Number not found!");
     }
 
     private void sortStudents() {
-    	Collections.sort(studentList, new MatrikelnummerComparator());
+    	Collections.sort(studentList, new StudentComparator());
     }
 
     private void generateSampleStudents() {
-        Random random = new Random();
+        //Random random = new Random();
         for (int i = 0; i < 50000; i++) {
             String name = "Student" + (i + 1);
             int matriculationNumber = 100000 + i;
