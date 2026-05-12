@@ -1,8 +1,11 @@
 package kapitel6;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -11,7 +14,8 @@ import java.util.Scanner;
  * - equals has been overidden
  */
 public class ManageStudentsWithMap {
-    private List<Student> studentList = new LinkedList<>();
+	//          Matrikelnummer, Student
+    private Map<Integer,        Student> studentMap = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
     private long startTime;
 
@@ -74,9 +78,25 @@ public class ManageStudentsWithMap {
     }
 
     private void listStudents() {
-    	for (int i = 0; i < studentList.size(); ++i) {
-    		System.out.printf("%05d: %s\n", i+1, 
-    				studentList.get(i));
+//    	for (int i = 0; i < studentList.size(); ++i) {
+//    		System.out.printf("%05d: %s\n", i+1, 
+//    				studentList.get(i));
+//    	}
+    	
+//    	int i = 1;
+//    	for (int matrNr : studentMap.keySet()) {
+//    		System.out.printf("%05d: %s\n", i++, studentMap.get(matrNr));
+//    	}
+    	
+//    	int i = 1;
+//    	for (Student s : studentMap.values()) {
+//    		System.out.printf("%05d: %s\n", i++, s);
+//    	}
+
+    	int i = 1;
+    	Iterator<Student> iter = studentMap.values().iterator();
+    	while (iter.hasNext()) {
+    		System.out.printf("%05d: %s\n", i++, iter.next());
     	}
     }
 
@@ -88,7 +108,7 @@ public class ManageStudentsWithMap {
     	
     	startTime = System.currentTimeMillis();
     	Student newStudent = new Student(name, nr);
-    	studentList.add(newStudent);
+    	studentMap.put(nr, newStudent);
     	System.out.println(newStudent + " added.");
     }
 
@@ -97,16 +117,18 @@ public class ManageStudentsWithMap {
     	int nr = scanner.nextInt();
     	
     	startTime = System.currentTimeMillis();
-    	boolean found = false;
-    	for (Student s : studentList) {
-    		if (s.getMatriculationNumber() == nr) {
-    			System.out.println(s + " found!");
-    			found = true;
-    			break;
-    		}
-    	}
+    	boolean found = studentMap.containsKey(nr);
+//    	for (Student s : studentList) {
+//    		if (s.getMatriculationNumber() == nr) {
+//    			System.out.println(s + " found!");
+//    			found = true;
+//    			break;
+//    		}
+//    	}
     	if (!found) {
     		System.out.println("Number not found!");
+    	} else {
+    		System.out.println(studentMap.get(nr) + " found!");
     	}
     }
 
@@ -115,20 +137,30 @@ public class ManageStudentsWithMap {
     	int nr = scanner.nextInt();
     	
     	startTime = System.currentTimeMillis();
-    	int i = 0;
-    	for (Student s : studentList) {
-    		if (s.getMatriculationNumber() == nr) {
-    			System.out.println(s + " deleted!");
-    			studentList.remove(i);
-    			return;
-    		}
-    		++i;
+//    	int i = 0;
+//    	for (Student s : studentList) {
+//    		if (s.getMatriculationNumber() == nr) {
+//    			System.out.println(s + " deleted!");
+//    			studentList.remove(i);
+//    			return;
+//    		}
+//    		++i;
+//    	}
+    	Student foundStudent = studentMap.remove(nr);
+    	if (foundStudent == null) {
+    		System.out.println("Number not found!");
+    	} else {
+    		System.out.println(foundStudent + " deleted!");
     	}
-    	System.out.println("Number not found!");
     }
 
     private void sortStudents() {
-    	Collections.sort(studentList, new StudentComparator());
+    	List<Student> studentList = new ArrayList<>();
+    	
+    	for (Student s : studentMap.values()) {
+    		studentList.add(s);
+    	}
+    	Collections.sort(studentList, new MatrikelnummerComparator());
     }
 
     private void generateSampleStudents() {
@@ -137,7 +169,7 @@ public class ManageStudentsWithMap {
             String name = "Student" + (i + 1);
             int matriculationNumber = 100000 + i;
             Student student = new Student(name, matriculationNumber);
-            studentList.add(student);
+            studentMap.put(matriculationNumber, student);
         }
         System.out.println("50,000 sample students generated.");
     }
