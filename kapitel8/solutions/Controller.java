@@ -114,7 +114,11 @@ public class Controller {
 				g1.setFarbe(0x0000FF); // blau				
 			}
 		}
-		
+		System.out.println("nach Farbanpassung:");
+		for(Lampe l : geraeteListe1) {
+			System.out.println(l);
+		}
+
 		// Synchronisiere Lampenschaltung
 		double value = 0;
 		
@@ -125,6 +129,7 @@ public class Controller {
 			g3.setStatus(value);
 		}
 		
+		System.out.println("nach Synchronisation:");
 		for(Lampe l : geraeteListe1) {
 			System.out.println(l);
 		}

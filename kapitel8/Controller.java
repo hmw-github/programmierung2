@@ -97,7 +97,7 @@ public class Controller {
 		_______ geraeteListe2 = new _______ { geraet1, geraet2, geraet3 };
 
 		// Ändere Farbe passend zur Temperatur
-		for(_______ g1 : geraeteListe1) {
+		for(Lampe g1 : geraeteListe1) {
 			if (sensor.getTemperatur() > 20.0) {
 				g1.setFarbe(0xFF0000); // rot
 			} else {
