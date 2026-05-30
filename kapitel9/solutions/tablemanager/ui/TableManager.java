@@ -1,19 +1,24 @@
-package kapitel9.tablemanager.ui;
+package kapitel9.solutions.tablemanager.ui;
 
 import java.util.ArrayList;
 
-import kapitel9.tablemanager.model.Article;
-import kapitel9.tablemanager.model.Reservation;
-import kapitel9.tablemanager.model.Table;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import kapitel9.solutions.tablemanager.model.Article;
+import kapitel9.solutions.tablemanager.model.Reservation;
+import kapitel9.solutions.tablemanager.model.Table;
 
 public class TableManager extends Application {
 	/**
@@ -80,25 +85,56 @@ public class TableManager extends Application {
 		/**
 		 *  Create controls
 		 */
-
-		// TODO
+		
+		tableLabel = new Label("");
+		reservationsListView = new ListView<Reservation>();
+		ordersListView = new ListView<String>();
+		selectArticleChoiceBox = new ChoiceBox<Article>();
+		selectArticleChoiceBox.getItems().addAll(articles);
+		dateTextField = new TextField();
+		dateTextField.setPromptText("Time (hh:mm)");
+		nameTextField = new TextField();
+		nameTextField.setPromptText("Name...");
+		addArticleButton = new Button("Add article");
+		addReservationButton = new Button("Add reservation");
 
 		/**
 		 *  Configure layout
 		 */
+		BorderPane main = new BorderPane();
+		FlowPane tablesPane = new FlowPane();
+		VBox sidePane = new VBox();
+		HBox addReservationForm = new HBox();
+		HBox addArticleForm = new HBox();
 
-		// TODO
-		VBox main = null; // dummy
-		
+		main.setLeft(tablesPane);
+		main.setRight(sidePane);
+
+		sidePane.getChildren().addAll(
+				tableLabel, reservationsListView, 
+				addReservationForm, ordersListView,
+				addArticleForm);
+
+		addReservationForm.getChildren().addAll(
+				dateTextField, nameTextField, addReservationButton);
+		addArticleForm.getChildren().addAll(
+				selectArticleChoiceBox, addArticleButton);
+
 		/**
 		 *  Event handlers for forms: addReservationButton, addArticleButton
 		 */
-		// TODO
-		
+		addReservationButton.setOnAction((event) -> handleOnClickAddReservation());
+		addArticleButton.setOnAction((event) -> handleOnClickAddArticle());
+
 		/**
 		 *  Create table buttons and set event handlers
 		 */
-		// TODO
+		ObservableList<Node> children = tablesPane.getChildren();
+		for (Table t : this.tables) {
+			Button button = new Button(t.toString());
+			button.setOnAction((event) -> handleOnClickTable(t));
+			children.add(button);
+		}
 
 		// Scene and Stage
 		Scene scene = new Scene(main, 850, 600);
@@ -120,7 +156,11 @@ public class TableManager extends Application {
 	 * - refresh UI
 	 */
 	private void handleOnClickAddArticle() {
-		// TODO
+		if (currentTable != null) {
+			Article article = selectArticleChoiceBox.getValue();
+			currentTable.addToBill(article);
+			refreshUi();
+		}
 	}
 
 	/**
@@ -131,7 +171,17 @@ public class TableManager extends Application {
 	 * - reset text fields
 	 */
 	private void handleOnClickAddReservation() {
-		// TODO
+		if (currentTable != null) {
+			String nameText = nameTextField.getText();
+			String dateText = dateTextField.getText();
+
+			Reservation r = new Reservation(dateText, nameText);
+			currentTable.addReservation(r);
+			refreshUi();
+
+			nameTextField.setText("");
+			dateTextField.setText("");
+		}
 	}
 
 	/**
@@ -143,7 +193,16 @@ public class TableManager extends Application {
 	 * @param t table corresponding to clicked button
 	 */
 	private void handleOnClickTable(Table t) {
-		// TODO
+		// refresh label
+		System.out.println(t.toString());
+		if (currentTable == null) {
+			currentTable = t;
+		} else if (currentTable != t) {
+			currentTable = t;
+		} else {
+			currentTable = null;
+		}
+		refreshUi();
 	}
 
 	/**
@@ -159,6 +218,33 @@ public class TableManager extends Application {
 	 * - enable name and date fields, article selection and add buttons
 	 */
 	private void refreshUi() {
-		// TODO
+		if (currentTable == null) {
+			tableLabel.setText("");
+			reservationsListView.getItems().clear();
+			ordersListView.getItems().clear();
+			nameTextField.setDisable(true);
+			dateTextField.setDisable(true);
+			selectArticleChoiceBox.setDisable(true);
+			addReservationButton.setDisable(true);
+			addArticleButton.setDisable(true);
+		} else {
+			tableLabel.setText(currentTable.toString());
+
+			reservationsListView.getItems().clear();
+			for (Reservation r : currentTable.reservations()) {
+				reservationsListView.getItems().add(r);
+			}
+
+			ordersListView.getItems().clear();
+			for (Article article : currentTable.articlesOnBill()) {
+				ordersListView.getItems().add(article + ": " + currentTable.getArticleCount(article));
+			}
+			
+			nameTextField.setDisable(false);
+			dateTextField.setDisable(false);
+			selectArticleChoiceBox.setDisable(false);
+			addReservationButton.setDisable(false);
+			addArticleButton.setDisable(false);
+		}
 	}
 }
