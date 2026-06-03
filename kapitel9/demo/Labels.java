@@ -26,8 +26,11 @@ public class Labels extends Application {
 				+ protokollTextArea.getText()));
 		Label label2 = new Label("Label 2 (style: fett)");
 		label2.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+		
+		
 		// Klick-Handler
 		label2.setOnMouseClicked(e -> {
+			System.out.println("x = " + e.getX());
 			if (label2.getText().equals("geklickt!")) {
 				label2.setText("Label 2 (style: fett)");
 			} else {

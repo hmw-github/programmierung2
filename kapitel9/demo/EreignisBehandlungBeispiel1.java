@@ -18,7 +18,7 @@ class MyHandler implements EventHandler<ActionEvent> {
 	}
 	
 	public void handle(ActionEvent event) {
-		System.out.println("Button geklickt, Name = " + nameTextField.getText());
+		System.out.println("Eigene Klasse: Button geklickt, Name = " + nameTextField.getText());
 	}	
 }
 
@@ -33,7 +33,7 @@ public class EreignisBehandlungBeispiel1 extends Application implements EventHan
 	
 	public void handle(ActionEvent event) {
 		if (event.getSource() == okButton) {
-			System.out.println("Button geklickt, Name = ?");
+			System.out.println("Lokaler Handler: Button geklickt, Name = ?");
 			System.out.println("dies ist dein " + ++counter + ". Klick!");			
 		}
 	}				
@@ -49,22 +49,22 @@ public class EreignisBehandlungBeispiel1 extends Application implements EventHan
 		p.getChildren().add(okButton);
 		
 		// Ereignisbehandlung für OK-Button
-		// okButton.setOnAction(new OKButtonEventHandler(nameTextField));
+		//okButton.setOnAction(new MyHandler(nameTextField));
 		
 		// Nutzung einer anonymen Klasse, die das EventHandler-Interface implementiert:
-		okButton.setOnAction(this);
-		okButton.setOnAction(new EventHandler<ActionEvent>() {			
-			public void handle(ActionEvent event) {
-				System.out.println("Button geklickt, Name = " + nameTextField.getText());
-				System.out.println("dies ist dein " + ++counter + ". Klick!");
-			}				
-		});
-
+		//okButton.setOnAction(this);
+//		okButton.setOnAction(new EventHandler<ActionEvent>() {			
+//			public void handle(ActionEvent event) {
+//				System.out.println("Button geklickt, Name = " + nameTextField.getText());
+//				System.out.println("dies ist dein " + ++counter + ". Klick!");
+//			}				
+//		});
+		
 		// noch kürzer: mit Lambda-Expression
-		okButton.setOnAction(event -> {
-			System.out.println("Button geklickt, Name = " + nameTextField.getText());
-			System.out.println("Button geklickt, Name = " + nameTextField.getText());
-		});
+//		okButton.setOnAction(event -> {
+//			System.out.println("Button geklickt, Name = " + nameTextField.getText());
+//		});
+		okButton.setOnAction(e -> System.out.println("Button geklickt, Name = " + nameTextField.getText()));
 		
 		Scene scene = new Scene(p, 300, 200);
 		stage.setScene(scene);

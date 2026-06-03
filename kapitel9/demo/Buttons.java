@@ -17,7 +17,7 @@ public class Buttons extends Application {
 	private TextArea protokollTextArea = new TextArea();
 	
 	static public void main(String[] args) {
-		launch(args);
+		launch();
 	}
 	
 	private FlowPane initCheckBoxes() {
