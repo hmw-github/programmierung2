@@ -31,7 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MailDialog extends Application {
-	private boolean showLayout = false; // true: zeigt Layout durch Farbe etc.
+	private boolean showLayout = true; // true: zeigt Layout durch Farbe etc.
 	
 	ChoiceBox<String> vonChoiceBox;
 	private TextField anTextField, betreffTextField;
@@ -61,7 +61,7 @@ public class MailDialog extends Application {
 		// oben, rechts, unten, links setzen
 		grid.setPadding(new Insets(10, 5, 10, 5));
 		if (showLayout)
-			grid.setStyle("-fx-background-color: #dbda9a");
+			grid.setStyle("-fx-background-color: pink");
 		grid.setGridLinesVisible(showLayout);
 		
 		anTextField = new TextField();

@@ -17,20 +17,24 @@ public class ZweiFensterMitScenes extends Application {
 		Button wechseln1 = new Button("wechseln zu Scene 2");
 		pane1.getChildren().add(wechseln1);
 		Scene scene1 = new Scene(pane1, 300, 200);
+
 		Pane pane2 = new FlowPane();
 		Button wechseln2 = new Button("zurück zu Scene 1");
 		pane2.getChildren().add(wechseln2);
 		Scene scene2 = new Scene(pane2, 300, 200);
+		
 		primaryStage.setScene(scene1);
+		
 		wechseln1.setOnAction(event -> primaryStage.setScene(scene2));
 		wechseln2.setOnAction(event -> primaryStage.setScene(scene1));
+
 		primaryStage.show();
 		
 		Stage fensterZwei = new Stage();
 		fensterZwei.setTitle("Fenster 2 (modal)");
 		fensterZwei.setScene(new Scene(new Label("Schliesse mich!"), 300, 100));
 		fensterZwei.initOwner(primaryStage);
-		fensterZwei.initModality(Modality.WINDOW_MODAL);
+		//fensterZwei.initModality(Modality.WINDOW_MODAL);
 		fensterZwei.show();
 	}	
 	static public void main(String[] args) {

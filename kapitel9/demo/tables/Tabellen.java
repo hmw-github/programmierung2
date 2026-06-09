@@ -77,23 +77,33 @@ public class Tabellen extends Application {
 		 */
         bezeichnungColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         farbeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
         gewichtColumn.setCellFactory(TextFieldTableCell.forTableColumn(
         		new StringConverter<Integer>() {
 					public Integer fromString(String s) {
 						// aus Zelle (String) -> Integer
-						return Integer.parseInt(s);
+						try {
+							return Integer.parseInt(s);
+						} catch (Exception e) {
+							return -47;
+						}
 					}
 					public String toString(Integer i) {
 						return "" + i;
 					}        			
         		}));
+        
         alterColumn.setCellFactory(TextFieldTableCell.forTableColumn(
     		new StringConverter<Integer>() {
 				public Integer fromString(String s) {
-					return Integer.parseInt(s);
+					try {
+						return Integer.parseInt(s);
+					} catch (Exception e) {
+						return -47;
+					}
 				}
 				public String toString(Integer i) {
-					return "" + i;
+					return "" + i + " Tage";
 				}        			
     		}));
 
