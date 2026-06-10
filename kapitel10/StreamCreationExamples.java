@@ -5,29 +5,11 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-class Person {
-    private String name;
-
-    public Person(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    @Override
-    public String toString() {
-        return "Person{name='" + name + "'}";
-    }
-}
-
 class Student extends Person {
     private int nr;
 
     public Student(String name, int nr) {
-        super(name);      // initialize the Person part
+        super(name, 19);      // initialize the Person part
         this.nr = nr;
     }
     public int getNr() {
@@ -51,7 +33,8 @@ public class StreamCreationExamples {
         .forEach(s -> System.out.println(s));
 
         System.out.println("\n** using Stream.of(array) **");
-        Person[] persons = { new Person("Alice"), new Person("Bob"), new Person("Charlie") };
+        Person[] persons = { new Person("Alice", 21), 
+        		new Person("Bob", 32), new Person("Charlie", 66) };
         Stream<Person> stream2 = Stream.of(persons);
         stream2
         .forEach(System.out::println);
