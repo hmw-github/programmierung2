@@ -33,10 +33,10 @@ public class StudentDB {
         	return studentenListe.get(index);
         } catch (IndexOutOfBoundsException e) {
         	if (index < 0) {
-        		throw e;
+        		throw e; // weiter werfen
         	}
         	// zu gross
-        	return null;
+        	return null; // Behandlung
         }
     }
     
@@ -47,6 +47,7 @@ public class StudentDB {
 	        System.out.println(db.gibStudentZuIndex(12));
 	        System.out.println(db.gibStudentZuIndex(-1));
         } catch (IndexOutOfBoundsException e) {
+        	e.printStackTrace();
         	System.out.println("IndexOutOfBoundsException: " + e.getMessage());
         }
     }

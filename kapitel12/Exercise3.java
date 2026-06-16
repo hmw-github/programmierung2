@@ -34,9 +34,18 @@ class Order {
     }
 
     public double totalPrice() {
-    	return items.stream()
-    	.map(item -> item.getPrice())
-    	.reduce(0.0, (x, y) -> x + y);
+    	// mit Schleife:
+    	double total = 0.0;
+    	
+    	for (Item item : items) {
+    		total += item.getPrice();
+    	}
+    	return total;
+    	
+    	// mit Stream:
+//    	return items.stream()
+//    	.map(item -> item.getPrice())
+//    	.reduce(0.0, (x, y) -> x + y);
     }
 
     public String getCustomerName() {
