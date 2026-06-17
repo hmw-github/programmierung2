@@ -26,13 +26,21 @@ final class Person {
 		return hobbies.stream()
 			.collect(Collectors.toList());
 	}
+	
+	public boolean equals(Person p) {
+		return true;
+	}
+	
+	@Override
 	public boolean equals(Object o) {	
 		if (o != null && o instanceof Person p) {
-			boolean sameHobbies = hobbies.size() == p.getHobbies().size();
+			boolean sameHobbies = hobbies.size() == p.getHobbies().size(); 
 			
 			if (!sameHobbies) {
 				return false;
 			}
+			
+			// sameHobbies = true
 			
 			for (String h1 : hobbies) {
 				boolean found = false;
@@ -59,12 +67,20 @@ final class Person {
 	public Person withAdditionalHobby(String hobby) {
 		List<String> newHobbies = new ArrayList<>();
 		
+		// besser getHobbies() nutzen + add()
 		hobbies.stream()
 		.forEach(h -> newHobbies.add(h));
 		newHobbies.add(hobby);
 		
 		return new Person(name, dateOfBirth, newHobbies);
 	}
+
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", dateOfBirth=" + dateOfBirth + ", hobbies=" + hobbies + "]";
+	}
+	
+	
 }
 
 public class Exercise1 {
@@ -76,7 +92,10 @@ public class Exercise1 {
         hobbies.add("Swimming");
 
         Person p1 = new Person("Alice", dob, hobbies);
+        System.out.println("Allice: " + p1);
 
+        List<String> hobbiesAlice = p1.getHobbies();
+        
         List<String> hobbies2 = new ArrayList<>();
         hobbies2.add("Reading");
         hobbies2.add("Swimming");

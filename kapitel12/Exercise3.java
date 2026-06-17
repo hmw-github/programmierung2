@@ -34,18 +34,16 @@ class Order {
     }
 
     public double totalPrice() {
-    	// mit Schleife:
-    	double total = 0.0;
-    	
-    	for (Item item : items) {
-    		total += item.getPrice();
-    	}
-    	return total;
-    	
+//    	double total = 0.0;
+//    	
+//    	for (Item item : items) {
+//    		total += item.getPrice();
+//    	}
+//    	return total;
     	// mit Stream:
-//    	return items.stream()
-//    	.map(item -> item.getPrice())
-//    	.reduce(0.0, (x, y) -> x + y);
+    	return items.stream()
+    			.map(item -> item.getPrice())
+    			.reduce(0.0, (x, y) -> x + y);
     }
 
     public String getCustomerName() {
@@ -76,27 +74,26 @@ public class Exercise3 {
         );
 
         // Stream solution
-        Map<String, Double> totalsWithStreams =
-            orders.stream()
-                  .collect(Collectors.toMap(
-                      Order::getCustomerName,
-                      Order::totalPrice
-                  ));
-
+        Map<String, Double> totalsWithStreams = orders.stream()
+        		.collect(Collectors.toMap(
+        				order -> order.getCustomerName(), // Order::getCustomerName()
+        				order -> order.totalPrice()));    // Order::totalPrice()
+        
         System.out.println("Using Streams:");
         System.out.println(totalsWithStreams);
+        
+        System.out.println("{");
+        totalsWithStreams.keySet().stream()
+        .forEach(customerName -> {
+        	System.out.printf("\t%s -> %f\n", customerName, totalsWithStreams.get(customerName));
+        });
+        System.out.println("}");
 
         // Classic loop solution
         Map<String, Double> totalsWithLoop = new HashMap<>();
 
         for (Order order : orders) {
-            double sum = 0.0;
-
-            for (Item item : order.getItems()) {
-                sum += item.getPrice();
-            }
-
-            totalsWithLoop.put(order.getCustomerName(), sum);
+            totalsWithLoop.put(order.getCustomerName(), order.totalPrice());
         }
 
         System.out.println("\nUsing classic loops:");
